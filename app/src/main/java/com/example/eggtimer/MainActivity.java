@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
     CountDownTimer countDownTimer;
 
     public void resetTimer(){
-        textView.setText("0:30");
-        seekBar.setProgress(30);
+        textView.setText("1:00");
+        seekBar.setProgress(60);
         seekBar.setEnabled(true);
         countDownTimer.cancel();
         button.setText("Start");
@@ -39,14 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
 
-
             countDownTimer = new CountDownTimer(seekBar.getProgress() * 1000 + 100, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-
                     updateTimer((int) millisUntilFinished / 1000);
-
-
                 }
 
                 @Override
@@ -54,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
                     MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.air_horn);
                     mediaPlayer.start();
-
                     resetTimer();
                 }
             }.start();
@@ -86,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
             timeTextView.setText(secondString+" Seconds left");
 
         }
+        else if(seconds==0 && minutes==1){
+            secondString="00";
+        }
         else if(seconds==0 && minutes<=1){
             timeTextView.setText("TIME UP!");
         }
@@ -108,14 +106,12 @@ public class MainActivity extends AppCompatActivity {
         button1=findViewById(R.id.button);
 
         seekBar.setMax(600);
-        seekBar.setProgress(30);
+        seekBar.setProgress(60);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 updateTimer(progress);
                 timeTextView.setVisibility(View.INVISIBLE);
-
-
 
             }
 
